@@ -1,7 +1,9 @@
 **一.链接是什么?**
  
 我们在这里可以去引用csapp 的定义 : **链接（linking）是将各种代码和数据部分收集起来并组合成为一个单一文件的过程，这个文件可被加载（或被拷贝）到存储器并执行。** 了解这句话的含义，我们首先需要明白linux 系统上的一般编译过程:
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210129155816377.png)
+
 需要强调的是，链接可以执行于编译时（compile time），也就是在源代码被翻译成机器代码时；也可以执行于加载时，也就是在程序被加载器（loader）加载到存储器并执行时；甚至执行于运行时（run time），由应用程序来执行。
 
  **二.链接过程有什么?**
@@ -16,7 +18,9 @@
 **1.目标文件**
 
 我们讨论的目标文件是基于Unix系统下的ELF文件
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210129184701314.png)
+
 >解释：
 .text：已编译程序的机器码；
 .rodata：只读数据（read-only-data）；
@@ -32,7 +36,9 @@
  **2.符号和符号表**
   
   定义和引用函数和全局变量的信息
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210129185554785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RyZWFtMDEzMF9f,size_16,color_FFFFFF,t_70)
+
 **3.符号解析**
 
 简单来说，链接器使得所有模块中的每一个符号都只有一个定义。链接器的作用主要就是把代码中的每一个符号引用和符号定义联系起来。
