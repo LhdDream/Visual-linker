@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdint>
 #include <cstdlib>
 #include <cstdio>
 #include <fcntl.h>    /* O_RDONLY */
@@ -11,8 +12,6 @@
 #include <vector>
 #include <elf.h>      // Elf64_Shdr
 #include <fcntl.h>
-
-namespace elf_parser {
 
 typedef struct {
     int section_index = 0; 
@@ -44,7 +43,7 @@ typedef struct {
 
 class Elf_parser {
     public:
-        Elf_parser (std::string &program_path): m_program_path{program_path} {   
+        Elf_parser (std::string &program_path): m_program_path(program_path) {   
             load_memory_map();
         }
         std::vector<section_t> get_sections();
@@ -75,5 +74,5 @@ class Elf_parser {
         uint8_t *m_mmap_program;
 };
 
-}
+
 #endif

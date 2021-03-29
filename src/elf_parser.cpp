@@ -1,5 +1,5 @@
-#include "elf_parser.hpp"
-using namespace elf_parser;
+#include "elf_parser.h"
+
 
 std::vector<section_t> Elf_parser::get_sections() {
     Elf64_Ehdr *ehdr = (Elf64_Ehdr*)m_mmap_program;
