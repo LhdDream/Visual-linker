@@ -1,34 +1,40 @@
 #include "cmdline.h"
-
+#include "../utils/strings.cpp"
+#include "section.h"
+#include <cassert>
 using namespace std;
 //展示链接信息
 //参数
-//   -S      空间与地址分配的过程
+//   -S      展示输入重定位文件中的段表信息
 //   -s      展示符号决议的过程
 //   -R      展示重定位的过程
-//   -M      展示 链接过程中涉及的库
 //   -T      指定 链接脚本
-//   -e      指定 lds 中的 entry 程序入口
-//   -o      指定 生成可执行文件的名称
 //   -p      链接信息以markdown格式写入文件
 //   -f      指定要链接的可重定位文件
+//   -o      可重定位名称
 int main(int argc, char * argv []) {
     cmdline::parser parse; // 创建命令行解析器
-    parse.add<string>("file",'f',"指定要链接的可重定位文件(以,分隔)",true,"");
-    parse.add<string>("name",'o',"指定生成可执行文件的名称", false ,"a.out");
-    parse.add<string>("map", 'm', "展示链接过程中涉及的库", true, "");
-    parse.add<string>("assign",'T', "指定链接脚本",true, "");
-    parse.add<string>("entry",'e',"指定程序入口",true, "");
-    parse.add<string>("print",'p',"链接信息以markdown格式写入文件",true,"");
-    parse.add("S",'\0',"空间与地址分配的过程");
+    parse.add<string>("file",'f',"指定要链接的可重定位文件(以,分隔)",false,"");
+    parse.add<string>("assign",'T', "指定链接脚本进行链接",false, "");
+    parse.add<string>("print",'p',"保留链接信息的markdown文件名称",false,"");
+    parse.add<string>("name",'o' , "文件名称",false, "a.out");
+    parse.add("S",'\0',"展示段表信息");
     parse.add("s",'\0',"展示符号决议的过程");
     parse.add("R",'\0',"展示重定位过程");
     parse.parse_check(argc,argv);
 
-    string command =  "ld";
-    //去进行相应函数的处理
+    auto file = parse.get<string>("file");  //可重定位文件
+    auto scriptname = parse.get<string>("assign");//指定的链接脚本名称
+    auto filename = parse.get<string>("print");// 指定的markdown 文件名称
+    auto name = parse.get<string>("name");//名称
+    assert(!file.empty());//判断有没有数据
+    vector<string> files ;
+    files = Split(file,",");//获取所有可重定位文件
+
     if(parse.exist("S")){
-        //空间与地址分配的过程
+        //展示段表信息
+        Section section(files);
+        section.parse();
     }
     if(parse.exist("s")){
         //展示符号决议的过程

@@ -53,7 +53,22 @@
         "typeinfo": "cpp",
         "atomic": "cpp",
         "future": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "optional": "cpp",
+        "set": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "variant": "cpp",
+        "regex": "cpp",
+        "loadlib.cpp": "c",
+        "command.cpp": "c",
+        "command.h": "c",
+        "unordered_set": "cpp"
     },
     "Lua.diagnostics.globals": [
         "commandinfo"

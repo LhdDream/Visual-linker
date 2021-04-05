@@ -1,7 +1,5 @@
-#include <cstdio>
 #include <string>
 #include <iostream>
-//lua头文件
 #ifdef __cplusplus
 	extern "C" {
 #include "lua.h"
@@ -14,7 +12,9 @@
 #include <lauxlib.h>
 #endif
 
-std::string command(const std::string & cmd){
+using namespace std;
+
+static inline std::string command(const std::string & cmd){
     lua_State *L =NULL;
     L = lua_open();
     luaL_openlibs(L);
@@ -26,9 +26,5 @@ std::string command(const std::string & cmd){
     lua_close(L);
     return result;
 }
-
-
-
-
 
 

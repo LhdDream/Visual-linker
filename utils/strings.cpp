@@ -7,8 +7,19 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 
+template< typename T >
+static std::string int_to_hex( T i )
+{
+  std::stringstream stream;
+  stream << "0x"
+         << std::setfill ('0') << std::setw(sizeof(T)*2)
+         << std::hex << i;
+  return stream.str();
+}
 
+//去重空格
 static inline std::vector<std::string> Compact(const std::vector<std::string> &tokens){
   std::vector<std::string> compacted;
 
@@ -20,7 +31,7 @@ static inline std::vector<std::string> Compact(const std::vector<std::string> &t
 
   return compacted;
 }
-
+//分割
 static inline std::vector<std::string> Split(const std::string &str, const std::string &delim, const bool trim_empty = false){
   size_t pos, last_pos = 0, len;
   std::vector<std::string> tokens;
@@ -45,7 +56,7 @@ static inline std::vector<std::string> Split(const std::string &str, const std::
 
   return tokens;
 }
-
+//合并
 static inline std::string Join(const std::vector<std::string> &tokens, const std::string &delim, const bool trim_empty = false){
   if(trim_empty) {
     return Join(Compact(tokens), delim, false);
@@ -84,7 +95,7 @@ static inline std::string Trim(const std::string &str){
     return str.substr(begin, end-begin+1);
   }
 }
-
+//重复多少次
 static inline std::string Repeat(const std::string &str, unsigned int times){
   std::stringstream ss;
   for(unsigned int i=0; i<times; ++i) {
@@ -92,24 +103,13 @@ static inline std::string Repeat(const std::string &str, unsigned int times){
   }
   return ss.str();
 }
-
+//替换所有的
 static inline std::string ReplaceAll(const std::string &source, const std::string &target, const std::string &replacement){
   return Join(Split(source, target, false), replacement, false);
 }
 
-static inline std::string ToUpper(const std::string &str){
-  std::string s(str);
-  std::transform(s.begin(), s.end(), s.begin(), toupper);
-  return s;
-}
 
-static inline std::string ToLower(const std::string &str){
-  std::string s(str);
-  std::transform(s.begin(), s.end(), s.begin(), tolower);
-  return s;
-}
-
-
+//读取文件
 static inline std::string ReadFile(const std::string &filepath) {
   std::ifstream ifs(filepath.c_str());
   std::string content( (std::istreambuf_iterator<char>(ifs) ),
@@ -117,7 +117,7 @@ static inline std::string ReadFile(const std::string &filepath) {
   ifs.close();
   return content;
 }
-
+//写入文件
 static inline void WriteFile(const std::string &filepath, const std::string &content) {
   std::ofstream ofs(filepath.c_str());
   ofs << content;
