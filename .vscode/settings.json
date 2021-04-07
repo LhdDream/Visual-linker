@@ -72,5 +72,6 @@
     },
     "Lua.diagnostics.globals": [
         "commandinfo"
-    ]
+    ],
+    "liveServer.settings.multiRootWorkspaceName": "Visual-linker"
 }

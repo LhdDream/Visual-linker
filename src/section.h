@@ -6,13 +6,14 @@
 #include <vector>
 #include <string>
 #include "elf_parser.h"
-
+#include "tabulate/table.hpp"
 using namespace std;
+using namespace tabulate;
 //只关注text,data,bss 段
 class Section {
     public:
     Section(vector<string> &files) : m_files(files) {}
-    void parse();
+    Table parse();
     private:
     vector<string> m_files;
 };
