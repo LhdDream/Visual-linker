@@ -1,3 +1,0 @@
-/root/Visual-linker/build/CMakeFiles/rebuild_cache.dir
-/root/Visual-linker/build/CMakeFiles/edit_cache.dir
-/root/Visual-linker/build/CMakeFiles/Visual-linker.dir
