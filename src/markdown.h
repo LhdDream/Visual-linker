@@ -2,6 +2,8 @@
 //已完成
 #include "tabulate/markdown_exporter.hpp"  // 注意这个头文件
 #include "tabulate/table.hpp"
+#include <vector>
+using namespace std;
 
 #ifndef _MARKDOWN_H_
 #define _MARKDOWN_H_
@@ -9,8 +11,9 @@
 using namespace tabulate;
 class Markdown{
     public:
-    Markdown( Table hellogithub) {
-       content=  exporter.dump(hellogithub);
+    Markdown( const vector<Table> & table) {
+        for(auto i : table)
+            content +=  exporter.dump(i) +"\n";
     }
     void writefile(const std::string &filepath);
     private:

@@ -13,7 +13,7 @@ using namespace tabulate;
 class Section {
     public:
     Section(vector<string> &files) : m_files(files) {}
-    Table parse();
+    vector<Table> parse();
     private:
     vector<string> m_files;
 };
