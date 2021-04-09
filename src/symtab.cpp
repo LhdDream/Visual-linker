@@ -16,9 +16,7 @@ typedef struct reloc
 	struct reloc *	next;		// linked list of relocations
 } reloc;
 
-/**
- * Describes the properties of an ELF symbol that are of interest.
- */
+
 typedef struct sym
 {
 	size_t		offset;	// address of the sym
@@ -27,9 +25,7 @@ typedef struct sym
 	struct reloc *	relocs;	// relocs that reference this symbol
 } sym;
 
-/**
- * Describes a collection of ELF symbols (symtab).
- */
+
 typedef struct symtab_s
 {
 	sym *	syms;		// array of nsyms (or more) elements
@@ -47,9 +43,7 @@ static int	sym_compare(const void* s1, const void* s2)
 		: (sym1->offset == sym2->offset ? 0 : -1);
 }
 
-/**
- * Sorts the given symbol table based on symbols offset.
- */
+
 extern void	symtab_sort(symtab_t* st)
 {
 	assert(st);
@@ -58,10 +52,7 @@ extern void	symtab_sort(symtab_t* st)
 	qsort(st->syms, st->free_idx, sizeof(sym), sym_compare);
 }
 
-/**
- * Allocates new symbol table capable of holding up to nsyms entries.
- * The allocated resources must be released with symtab_free().
- */
+
 extern symtab_t*	symtab_alloc(size_t nsyms)
 {
 	sym *syms = (sym*)calloc(nsyms, sizeof(sym));
@@ -83,9 +74,7 @@ extern symtab_t*	symtab_alloc(size_t nsyms)
 	return st;
 }
 
-/**
- * Releases the resources allocated for the symbol table (see symtab_alloc()).
- */
+
 extern void		symtab_free(symtab_t* s)
 {
 	assert(s);
@@ -106,10 +95,7 @@ extern void		symtab_free(symtab_t* s)
 	free(s);
 }
 
-/**
- * Returns symbol, which offset is not less than the given offset and is nearest
- * to it. If not found, returns NULL.
- */
+
 static sym*	locate_sym(symtab_t* st, size_t offset)
 {
 	sym *ret = NULL;
@@ -143,9 +129,7 @@ static sym*	locate_sym(symtab_t* st, size_t offset)
 	return ret;
 }
 
-/**
- * Adds a symbol with the given properties to the given symbol table.
- */
+
 extern size_t		symtab_add_sym(symtab_t* symtab, size_t offset, int type, const char* sym_name)
 {
 	assert(symtab);
@@ -160,9 +144,7 @@ extern size_t		symtab_add_sym(symtab_t* symtab, size_t offset, int type, const c
 	return ++symtab->free_idx;
 }
 
-/**
- * Adds relocation information to the appropriate symbol (determined by the offset) in the given symbol table.
- */
+
 extern void		symtab_add_reloc(symtab_t* st, size_t offset, const char* sym_name, bool is_func, int64_t addend)
 {
 	assert(st);
@@ -274,10 +256,7 @@ extern bool		args_sym_is_interesting(const char *name, int type)
 	return true;
 }
 
-/**
- * Prints out the contents of the symbol table, excluding symbols that are not of interest to the user based on the options given.
- * See args_sym_is_interesting().
- */
+
 extern void	symtab_dump(symtab_t* st,std::string & result)
 {
 	assert(st);

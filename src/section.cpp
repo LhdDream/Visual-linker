@@ -13,10 +13,8 @@ vector<Table> Section::parse(){
         Elf_parser elf_parser(file);
         std::vector<section_t> sec = elf_parser.get_sections();
         for(auto & i :sec){
-            if(i.section_name.find("text") != std::string::npos || i.section_name.find("data") != std::string::npos || i.section_name.find("bss") != std::string::npos)
-            {
-                format.add_row({file,i.section_name,i.section_type,int_to_hex(i.section_addr),int_to_hex(i.section_offset),int_to_hex(i.section_size),int_to_hex(i.section_ent_size),to_string(i.section_addr_align)});
-            }
+            if(!i.section_name.empty())
+               format.add_row({file,i.section_name,i.section_type,int_to_hex(i.section_addr),int_to_hex(i.section_offset),int_to_hex(i.section_size),int_to_hex(i.section_ent_size),to_string(i.section_addr_align)});
         }
         result.push_back(format);
     }

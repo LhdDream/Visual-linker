@@ -1,5 +1,6 @@
 #include "markdown.h"
 #include "../utils/strings.cpp"
 void Markdown::writefile(const std::string &filepath){
-    WriteFile(filepath,content);
+    for(auto tmp :content)
+     WriteFile(filepath,tmp);
 }

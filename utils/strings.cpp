@@ -111,7 +111,7 @@ static inline std::string ReplaceAll(const std::string &source, const std::strin
 
 //读取文件
 static inline std::string ReadFile(const std::string &filepath) {
-  std::ifstream ifs(filepath.c_str(),std::ios::app);
+  std::ifstream ifs(filepath.c_str());
   std::string content( (std::istreambuf_iterator<char>(ifs) ),
                        (std::istreambuf_iterator<char>()    ) );
   ifs.close();
@@ -119,7 +119,7 @@ static inline std::string ReadFile(const std::string &filepath) {
 }
 //写入文件
 static inline void WriteFile(const std::string &filepath, const std::string &content) {
-  std::ofstream ofs(filepath.c_str());
+  std::ofstream ofs(filepath.c_str(),std::ios::app);
   ofs << content;
   ofs.close();
   return;

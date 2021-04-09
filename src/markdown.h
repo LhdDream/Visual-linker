@@ -13,12 +13,15 @@ class Markdown{
     public:
     Markdown( const vector<Table> & table) {
         for(auto i : table)
-            content +=  exporter.dump(i) +"\n";
+        {
+            std::string tmp = exporter.dump(i) +"\n";
+            content.push_back(tmp);
+        }
     }
     void writefile(const std::string &filepath);
     private:
     MarkdownExporter exporter;
-    std::string content;
+    std::vector<std::string> content;
 };
 
 

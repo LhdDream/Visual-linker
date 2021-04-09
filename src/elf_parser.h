@@ -14,10 +14,10 @@
 #include <fcntl.h>
 
 typedef struct {
-    int section_index = 0; 
+    int section_index = 0;
     std::intptr_t section_offset, section_addr;
     std::string section_name;
-    std::string section_type; 
+    std::string section_type;
     int section_size, section_ent_size, section_addr_align;
 } section_t;
 
@@ -27,12 +27,18 @@ typedef struct {
     int segment_align;
 } segment_t;
 
-typedef struct {
+typedef struct symbol_t symbol_t;
+
+struct symbol_t{
     std::string symbol_index;
     std::intptr_t symbol_value;
     int symbol_num = 0, symbol_size = 0;
-    std::string symbol_type, symbol_bind, symbol_visibility, symbol_name, symbol_section;      
-} symbol_t;
+    std::string symbol_type, symbol_bind, symbol_visibility, symbol_name, symbol_section;
+
+    bool operator==(const symbol_t &a)const {
+        return symbol_name == a.symbol_name ;
+    }
+} ;
 
 typedef struct {
     std::intptr_t relocation_offset, relocation_info, relocation_symbol_value;
@@ -43,7 +49,7 @@ typedef struct {
 
 class Elf_parser {
     public:
-        Elf_parser (std::string &program_path): m_program_path(program_path) {   
+        Elf_parser (std::string &program_path): m_program_path(program_path) {
             load_memory_map();
         }
         std::vector<section_t> get_sections();
@@ -51,7 +57,7 @@ class Elf_parser {
         std::vector<symbol_t> get_symbols();
         std::vector<relocation_t> get_relocations();
         uint8_t *get_memory_map();
-        
+
     private:
         void load_memory_map();
 
@@ -70,7 +76,7 @@ class Elf_parser {
         std::string get_rel_symbol_name(
             uint64_t &sym_idx, std::vector<symbol_t> &syms);
 
-        std::string m_program_path; 
+        std::string m_program_path;
         uint8_t *m_mmap_program;
 };
 

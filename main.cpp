@@ -3,6 +3,7 @@
 #include "src/section.h"
 #include "src/markdown.h"
 #include "src/relocation.h"
+#include "src/symbol.h"
 #include <cassert>
 using namespace std;
 
@@ -13,11 +14,11 @@ using namespace tabulate;
 //   -s      展示符号决议的过程
 //   -R      展示重定位的过程
 //   -p      链接信息以markdown格式写入文件
-//   -f      指定要链接的可重定位文件
+//   -f      需要分析可重定位文件/ELF文件(以,分隔)
 int main(int argc, char * argv []) {
     cmdline::parser parse; // 创建命令行解析器
-    parse.add<string>("file",'f',"指定要链接的可重定位文件(以,分隔)",false,"");
-    parse.add<string>("print",'p',"保留链接信息的markdown文件名称(默认为visual.md)",false,"visual.md");
+    parse.add<string>("file",'f',"需要分析可重定位文件/ELF文件(以,分隔)",false,"");
+    parse.add<string>("print",'p',"保留分析信息的markdown文件名称(默认为visual.md)",false,"visual.md");
     parse.add("S",'\0',"展示段表信息");
     parse.add("s",'\0',"展示符号决议的过程");
     parse.add("R",'\0',"展示重定位过程");
@@ -40,6 +41,10 @@ int main(int argc, char * argv []) {
     }
     if(parse.exist("s")){
         //展示符号决议的过程
+        if(!filename.empty()){
+            Symbol symbol(files,filename);
+            symbol.parse();
+        }
     }
     if(parse.exist("R")){
         //展示重定位的过程

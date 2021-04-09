@@ -18,6 +18,9 @@ vector<Table> Relocation::parse() {
             symtab_free(st);
         }
         input_close(in);
+        if(result.empty()){
+            result = "This relocation result is empty";
+        }
         tmp.add_row({result});
         tables.push_back(tmp);
     }

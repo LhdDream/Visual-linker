@@ -1,9 +1,6 @@
 #include "depinput.h"
 #include "../utils/easylogging++.h"
 #include "symtab.h"
-
-
-
 #include <stdbool.h>
 #include <elf.h>
 #include <stdlib.h>
@@ -117,10 +114,7 @@ static void	check_str_sec(input_t* in, elf_sections_s* descr, Elf64_Shdr* sec)
 	}
 }
 
-/**
- * Reads an ELF program header that has different endianness than us and
- * replaces its every data member so that is has the same endianness.
- */
+
 static void	make_ehdr_native_endian_64(Elf64_Ehdr* ehdr)
 {
 	assert( ehdr );
@@ -140,10 +134,7 @@ static void	make_ehdr_native_endian_64(Elf64_Ehdr* ehdr)
 	ehdr->e_shstrndx = get_uint16(&ehdr->e_shstrndx);
 }
 
-/**
- * Reads an ELF section header that has different endianness than us and
- * replaces its every data member so that is has the same endianness.
- */
+
 static void	make_shdr_native_endian_64(Elf64_Shdr* shdr)
 {
 	assert( shdr );
@@ -217,11 +208,7 @@ static void	find_sym_sec(input_t* in, elf_sections_s* descr)
 	}
 }
 
-/**
- * Locates all SYMTAB and their corresponding STRTAB sections and stores
- * pointers to them in input_t. Also converts the section headers to
- * the same endianness as us, if necessary.
- */
+
 extern elf_sections_s*	find_sections_64(input_t* in)
 {
 	static elf_sections_s 	elf_sec = {0};
@@ -342,10 +329,7 @@ static size_t	read_symtab_sec(input_t* in,
 	return syms_idx;
 }
 
-/**
- * Reads in the input ELF file and returns a pointer to the file's symbol table as symtab_t (see).
- * The returned object must be deallocated with symtab_free().
- */
+
 extern symtab_t*	read_in_symtab_64(input_t* in, elf_sections_s* descr)
 {
 	size_t nsyms = 0;
@@ -435,9 +419,7 @@ static void	make_rela_same_endian_64(Elf64_Rela* r)
 	r->r_addend = (int64_t)get_uint64(&r->r_addend);
 }
 
-/**
- * Processes relocation records in the given input ELF file, adding information to the given symbol table.
- */
+
 extern void process_relocations_64(input_t* in, elf_sections_s* descr, symtab_t* symtab)
 {
 	for (int i = 0; i < descr->elf64.shnum; ++i)
@@ -490,18 +472,14 @@ extern void process_relocations_64(input_t* in, elf_sections_s* descr, symtab_t*
 	}
 }
 
-/**
- * Returns the size of the input file in bytes.
- */
+
 unsigned long long	input_get_file_size(input_t* in)
 {
 	assert(in);
 	return in->fsize;
 }
 
-/**
- * Returns the pointer to memory-mapped image of the input file.
- */
+
 char *			input_get_mem_map(input_t* in)
 {
 	assert(in);
@@ -509,9 +487,7 @@ char *			input_get_mem_map(input_t* in)
 	return in->map;
 }
 
-/**
- * Returns true if we are the same endianness as the input ELF file.
- */
+
 bool			input_get_is_same_endian(input_t* in)
 {
 	assert(in);
@@ -520,9 +496,7 @@ bool			input_get_is_same_endian(input_t* in)
 
 
 
-/**
- * Returns the set of reader functions appropriate for the input given.
- */
+
 struct reader_funcs	input_init_reader_funcs(input_t * in)
 {
 	struct reader_funcs rdr;
@@ -561,9 +535,7 @@ const char*	elf_describe(int type)
 	}
 }
 
-/**
- * For the opened input, returns the set of functions suitable for reading it.
- */
+
 struct reader_funcs	input_read_elf_header(input_t* in)
 {
 	Elf64_Ehdr *ehdr = (Elf64_Ehdr *)in->map; // map must be page-aligned, so no problem with the cast
@@ -586,11 +558,7 @@ struct reader_funcs	input_read_elf_header(input_t* in)
 	return input_init_reader_funcs(in);
 }
 
-////////////////////// Input file reader functions ////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-/**
- * Returns a 64-bit value pointed to by vp interpreting the bytes as having a different endianness than this program.
- */
+
 uint64_t		get_uint64(void* vp)
 {
 	char *p = (char *)vp;
@@ -608,9 +576,7 @@ uint64_t		get_uint64(void* vp)
 	return u.i;
 }
 
-/**
- * Returns a 32-bit value pointed to by vp interpreting the bytes as having a different endianness than this program.
- */
+
 uint32_t		get_uint32(void* vp)
 {
 	char *p = (char *)vp;
@@ -626,9 +592,7 @@ uint32_t		get_uint32(void* vp)
 	return u.i;
 }
 
-/**
- * Returns a 16-bit value pointed to by vp interpreting the bytes as having a different endianness than this program.
- */
+
 uint16_t		get_uint16(void* vp)
 {
 	char *p = (char *)vp;
