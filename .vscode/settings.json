@@ -69,7 +69,9 @@
         "command.cpp": "c",
         "command.h": "c",
         "unordered_set": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp"
     },
     "Lua.diagnostics.globals": [
         "commandinfo"

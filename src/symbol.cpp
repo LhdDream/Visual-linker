@@ -13,7 +13,17 @@ void Symbol::files() {
     m_content += exporter.dump(format) + "\n";
 }
 
+void Symbol::rule() {
+    Table format;
+    format.add_row({"The rules"});
+    format.add_row({"Local symbols have been determined during compilation"});
+    format.add_row({"Only GLOBAL symbols are considered during the linking process"});
+    MarkdownExporter exporter;
+    m_content += exporter.dump(format) + "\n";
+}
+
 void Symbol::parse() {
+    rule();
     files();
     for(auto i : m_files){
         Elf_parser elf_parser(i);
@@ -22,16 +32,16 @@ void Symbol::parse() {
     }
     for(auto symbol  : m_symols){
         //遍历已定义的符号
-        m_content += symbol.first + "\n Define Symbol Table \n";
+        m_content += " Define Symbol Table \n";
         Table tmp_exit;
-        tmp_exit.add_row({"Value","Size","Type","Bind","Vis","Ndx","Name"});
+        tmp_exit.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
         for(auto sym : symbol.second){
-            if(sym.symbol_index == "UND"){
+            if(sym.symbol_index == "UND" || sym.symbol_bind == "LOCAL"){
                 continue;
             }
             std::string name = sym.symbol_name;
             name += "(" + sym.symbol_section + ")";
-            tmp_exit.add_row({int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
+            tmp_exit.add_row({symbol.first,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
             sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
             name});
         }
@@ -39,14 +49,14 @@ void Symbol::parse() {
         m_content += tmp_export.dump(tmp_exit) + "\n";
         m_content += "\n";
         // //遍历未定义的符号
-        m_content += symbol.first + "\n Undefine Symbol Table \n";
+        m_content += " Undefine Symbol Table \n";
         Table tmp_noexit;
-        tmp_noexit.add_row({"Value","Size","Type","Bind","Vis","Ndx","Name"});
+        tmp_noexit.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
         for(auto sym : symbol.second){
             if(sym.symbol_index == "UND" && sym.symbol_bind == "GLOBAL"){
                 std::string name = sym.symbol_name;
                 name += "(" + sym.symbol_section + ")";
-                tmp_noexit.add_row({int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
+                tmp_noexit.add_row({symbol.first,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
                 sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
                 name});
             }
@@ -54,6 +64,53 @@ void Symbol::parse() {
         MarkdownExporter tmp_noexport;
         m_content += tmp_noexport.dump(tmp_noexit) + "\n";
         m_content += "\n";
+        m_content += "Global Symbol Table\n";
+        Table global;
+        global.add_row({"Value","Size","Type","Bind","Vis","Ndx","Name"});
+        for(auto sym :symbol.second){
+            if(sym.symbol_bind == "GLOBAL") {
+                if (sym.symbol_index != "UND")
+                {
+                    auto it = m_global.find(sym);
+                    if(it != m_global.end() && it->symbol_index == "UND" ){
+                        m_global.erase(it);
+                    }
+                }
+                m_global.emplace(sym);
+            }
+        }
+        for(auto sym : m_global){
+            std::string name = sym.symbol_name;
+            name += "(" + sym.symbol_section + ")";
+            global.add_row({int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
+            sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
+            name});
+        }
+        MarkdownExporter tmp_global;
+        m_content += tmp_global.dump(global) + "\n";
+        m_content += "\n";
     }
     WriteFile(m_file,m_content);
+}
+
+void Symbol::parseobj(std::string &objname) {
+
+    Elf_parser elf_parser(objname);
+    std::vector<symbol_t> symbols = elf_parser.get_symbols();
+    Table table;
+    table.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
+    for(auto sym :symbols) {
+        if(sym.symbol_bind != "GLOBAL") {
+            continue;
+        }
+        std::string name = sym.symbol_name;
+        name += "(" + sym.symbol_section + ")";
+        table.add_row({objname,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
+            sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
+            name});
+    }
+    MarkdownExporter markdown;
+    std::string content = markdown.dump(table) + "\n";
+    content += "\n";
+    WriteFile(m_file,content);
 }

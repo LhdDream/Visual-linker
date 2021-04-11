@@ -200,7 +200,7 @@ extern void		symtab_add_reloc(symtab_t* st, size_t offset, const char* sym_name,
 
 
 
-static void	dump_reloc(reloc *r,std::string & result)
+static void	dump_reloc(reloc *r,std::string & result,std::vector<std::string> & parse_func)
 {
 
 	//fprintf(stdout, "\t(+0x%04lx)-> ", r->offset);
@@ -212,6 +212,7 @@ static void	dump_reloc(reloc *r,std::string & result)
 	if (r->sym_name)
 	{
 		//fprintf(stdout, "%s", r->sym_name);
+		parse_func.push_back(r->sym_name);
 		result += r->sym_name;
 		if (r->is_func)
 			//fprintf(stdout, "()");
@@ -231,15 +232,16 @@ static void	dump_reloc(reloc *r,std::string & result)
 	result += "\n";
 }
 
-static void	dump_sym(sym* s,std::string & result)
+static void	dump_sym(sym* s,std::string & result,std::vector<std::string> & parse_func)
 {
 	//fprintf(stdout, "%s (addr 0x%08lx)\n", s->name, s->offset);
+	parse_func.push_back(s->name);
 	result += s->name ;
 	result += " (addr ";
 	result += int_to_hex(s->offset) +")\n";
 	for (reloc *r = s->relocs; r; r = r->next)
 	{
-		dump_reloc(r,result);
+		dump_reloc(r,result,parse_func);
 	}
 }
 
@@ -257,7 +259,7 @@ extern bool		args_sym_is_interesting(const char *name, int type)
 }
 
 
-extern void	symtab_dump(symtab_t* st,std::string & result)
+extern void	symtab_dump(symtab_t* st,std::string & result,std::vector<std::string> & parse_func)
 {
 	assert(st);
 
@@ -270,7 +272,7 @@ extern void	symtab_dump(symtab_t* st,std::string & result)
 		{
 			if (s->relocs)
 			{
-				dump_sym(s,result);
+				dump_sym(s,result,parse_func);
 				empty_output = false;
 			}
 		}

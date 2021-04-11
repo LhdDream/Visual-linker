@@ -229,6 +229,8 @@ Visual-linker: CMakeFiles/Visual-linker.dir/utils/command.cpp.o
 Visual-linker: CMakeFiles/Visual-linker.dir/utils/easylogging++.cpp.o
 Visual-linker: CMakeFiles/Visual-linker.dir/utils/strings.cpp.o
 Visual-linker: CMakeFiles/Visual-linker.dir/build.make
+Visual-linker: /usr/lib64/liblua-5.1.so
+Visual-linker: /usr/lib64/libm.so
 Visual-linker: CMakeFiles/Visual-linker.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/Visual-linker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable Visual-linker"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Visual-linker.dir/link.txt --verbose=$(VERBOSE)

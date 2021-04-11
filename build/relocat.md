@@ -7,7 +7,3 @@
 | swap (addr 0x0000000000000000) |
 | (0x0000000000000020)->         |
 
-| ab                              |
-| :----                           |
-| This relocation result is empty |
-

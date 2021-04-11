@@ -1,6 +1,9 @@
-rm -rf section.md symbol_a.md symbol_a_b.md symbol_a_b_ab.md relocat.md
-./Visual-linker -f a.o,b.o,ab --S --print section.md
-./Visual-linker -f a.o --s --print symbol_a.md
+rm -rf *.map
+rm -rf section.md  symbol_a_b.md  relocat.md section_ld.md symbol_a_b_ld.md relocat_ld.md
+./Visual-linker -f a.o,b.o --S --print section.md
+./Visual-linker -f a.o,b.o  --S -T test.lds -o ab --print section_ld.md
+
 ./Visual-linker -f a.o,b.o --s --print symbol_a_b.md
-./Visual-linker -f a.o,b.o,ab --s --print symbol_a_b_ab.md
-./Visual-linker -f a.o,b.o,ab --R --print relocat.md
+./Visual-linker -f a.o,b.o  --s -T test.lds -o ab --print symbol_a_b_ld.md
+./Visual-linker -f a.o,b.o --R --print relocat.md
+./Visual-linker -f a.o,b.o --R -T test.lds -o ab --print relocat_ld.md

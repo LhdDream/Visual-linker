@@ -4,11 +4,14 @@
 CMakeFiles/Visual-linker.dir/main.cpp.o
  ../src/cmdline.h
  /root/Visual-linker/main.cpp
+ /root/Visual-linker/src/cmd.h
  /root/Visual-linker/src/elf_parser.h
  /root/Visual-linker/src/markdown.h
  /root/Visual-linker/src/relocation.h
  /root/Visual-linker/src/section.h
+ /root/Visual-linker/src/sole.hpp
  /root/Visual-linker/src/symbol.h
+ /root/Visual-linker/utils/command.cpp
  /root/Visual-linker/utils/strings.cpp
 CMakeFiles/Visual-linker.dir/src/depinput64.cpp.o
  /root/Visual-linker/src/depinput.h
@@ -27,11 +30,14 @@ CMakeFiles/Visual-linker.dir/src/relocation.cpp.o
  /root/Visual-linker/src/relocation.cpp
  /root/Visual-linker/src/relocation.h
  /root/Visual-linker/src/symtab.h
+ /root/Visual-linker/utils/command.cpp
  /root/Visual-linker/utils/easylogging++.h
+ /root/Visual-linker/utils/strings.cpp
 CMakeFiles/Visual-linker.dir/src/section.cpp.o
  /root/Visual-linker/src/elf_parser.h
  /root/Visual-linker/src/section.cpp
  /root/Visual-linker/src/section.h
+ /root/Visual-linker/utils/command.cpp
  /root/Visual-linker/utils/strings.cpp
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o
  /root/Visual-linker/src/elf_parser.h

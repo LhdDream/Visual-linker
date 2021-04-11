@@ -8,11 +8,23 @@
 
 using namespace tabulate;
 using namespace std;
+// relocation 信息
+// load 内容 cat ..map | grep LOAD
+// text data bss 起始地址
+//cat 7YPOD3lzOGH-9QZoQCnh06P.map  | grep .text | head -1
+//
+// objdump 进行汇编代码的展示  objdump -S ab | grep -A 1 swap | head -2
 class Relocation {
     public:
             Relocation(vector<string> & files) : m_files(files) {}
-            vector<Table> parse();
+            void parse();
+            vector<Table> get_table();
+            void loadlib(const string & mapname);
+            void start_address(const string & mapname);
+            void obj_parse(const std::string & objname);
     private:
         vector<string> m_files;
+        vector<Table>  m_tables;
+        vector<string> m_parse_name;
 };
 #endif

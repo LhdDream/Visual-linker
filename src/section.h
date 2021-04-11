@@ -13,8 +13,12 @@ using namespace tabulate;
 class Section {
     public:
     Section(vector<string> &files) : m_files(files) {}
-    vector<Table> parse();
+    void parse();
+    vector<Table> get_tables();
+    void swap(vector<string> & files);
+    void parsemap(const string & filename);
     private:
     vector<string> m_files;
+    vector<Table> m_result;
 };
 #endif

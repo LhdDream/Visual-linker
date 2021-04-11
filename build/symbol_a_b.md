@@ -1,48 +1,51 @@
+| The rules                                                     |
+| :----                                                         |
+| Local symbols have been determined during compilation         |
+| Only GLOBAL symbols are considered during the linking process |
+
 | files gather |
 | :----        |
 | a.o          |
 | b.o          |
 
-a.o
  Define Symbol Table 
-| Value              | Size       | Type    | Bind   | Vis     | Ndx   | Name          |
-| :----              | :----      | :----   | :----  | :----   | :---- | :----         |
-| 0x0000000000000000 | 0x00000000 | FILE    | LOCAL  | DEFAULT | ABS   | a.c(.symtab)  |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 1     | (.symtab)     |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 3     | (.symtab)     |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 4     | (.symtab)     |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 6     | (.symtab)     |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 7     | (.symtab)     |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 5     | (.symtab)     |
-| 0x0000000000000000 | 0x0000002c | FUNC    | GLOBAL | DEFAULT | 1     | main(.symtab) |
+| File  | Value              | Size       | Type  | Bind   | Vis     | Ndx   | Name          |
+| :---- | :----              | :----      | :---- | :----  | :----   | :---- | :----         |
+| a.o   | 0x0000000000000000 | 0x0000002c | FUNC  | GLOBAL | DEFAULT | 1     | main(.symtab) |
 
 
-a.o
  Undefine Symbol Table 
+| File  | Value              | Size       | Type   | Bind   | Vis     | Ndx   | Name            |
+| :---- | :----              | :----      | :----  | :----  | :----   | :---- | :----           |
+| a.o   | 0x0000000000000000 | 0x00000000 | NOTYPE | GLOBAL | DEFAULT | UND   | shared(.symtab) |
+| a.o   | 0x0000000000000000 | 0x00000000 | NOTYPE | GLOBAL | DEFAULT | UND   | swap(.symtab)   |
+
+
+Global Symbol Table
 | Value              | Size       | Type   | Bind   | Vis     | Ndx   | Name            |
 | :----              | :----      | :----  | :----  | :----   | :---- | :----           |
-| 0x0000000000000000 | 0x00000000 | NOTYPE | GLOBAL | DEFAULT | UND   | shared(.symtab) |
 | 0x0000000000000000 | 0x00000000 | NOTYPE | GLOBAL | DEFAULT | UND   | swap(.symtab)   |
+| 0x0000000000000000 | 0x00000000 | NOTYPE | GLOBAL | DEFAULT | UND   | shared(.symtab) |
+| 0x0000000000000000 | 0x0000002c | FUNC   | GLOBAL | DEFAULT | 1     | main(.symtab)   |
 
 
-b.o
  Define Symbol Table 
-| Value              | Size       | Type    | Bind   | Vis     | Ndx   | Name            |
-| :----              | :----      | :----   | :----  | :----   | :---- | :----           |
-| 0x0000000000000000 | 0x00000000 | FILE    | LOCAL  | DEFAULT | ABS   | b.c(.symtab)    |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 1     | (.symtab)       |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 2     | (.symtab)       |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 3     | (.symtab)       |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 5     | (.symtab)       |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 6     | (.symtab)       |
-| 0x0000000000000000 | 0x00000000 | SECTION | LOCAL  | DEFAULT | 4     | (.symtab)       |
-| 0x0000000000000000 | 0x00000004 | OBJECT  | GLOBAL | DEFAULT | 2     | shared(.symtab) |
-| 0x0000000000000000 | 0x0000004b | FUNC    | GLOBAL | DEFAULT | 1     | swap(.symtab)   |
+| File  | Value              | Size       | Type   | Bind   | Vis     | Ndx   | Name            |
+| :---- | :----              | :----      | :----  | :----  | :----   | :---- | :----           |
+| b.o   | 0x0000000000000000 | 0x00000004 | OBJECT | GLOBAL | DEFAULT | 2     | shared(.symtab) |
+| b.o   | 0x0000000000000000 | 0x0000004b | FUNC   | GLOBAL | DEFAULT | 1     | swap(.symtab)   |
 
 
-b.o
  Undefine Symbol Table 
-| Value | Size  | Type  | Bind  | Vis   | Ndx   | Name  |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+| File  | Value | Size  | Type  | Bind  | Vis   | Ndx   | Name  |
+| :---- | :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+
+
+Global Symbol Table
+| Value              | Size       | Type   | Bind   | Vis     | Ndx   | Name            |
+| :----              | :----      | :----  | :----  | :----   | :---- | :----           |
+| 0x0000000000000000 | 0x0000004b | FUNC   | GLOBAL | DEFAULT | 1     | swap(.symtab)   |
+| 0x0000000000000000 | 0x00000004 | OBJECT | GLOBAL | DEFAULT | 2     | shared(.symtab) |
+| 0x0000000000000000 | 0x0000002c | FUNC   | GLOBAL | DEFAULT | 1     | main(.symtab)   |
 
 

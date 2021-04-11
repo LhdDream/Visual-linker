@@ -3,11 +3,14 @@
 
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/cmdline.h
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../main.cpp
+CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/cmd.h
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/elf_parser.h
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/markdown.h
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/relocation.h
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/section.h
+CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/sole.hpp
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../src/symbol.h
+CMakeFiles/Visual-linker.dir/main.cpp.o: ../utils/command.cpp
 CMakeFiles/Visual-linker.dir/main.cpp.o: ../utils/strings.cpp
 
 CMakeFiles/Visual-linker.dir/src/depinput64.cpp.o: ../src/depinput.h
@@ -26,11 +29,14 @@ CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../src/depinput.h
 CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../src/relocation.cpp
 CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../src/relocation.h
 CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../src/symtab.h
+CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../utils/command.cpp
 CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../utils/easylogging++.h
+CMakeFiles/Visual-linker.dir/src/relocation.cpp.o: ../utils/strings.cpp
 
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../src/elf_parser.h
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../src/section.cpp
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../src/section.h
+CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../utils/command.cpp
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../utils/strings.cpp
 
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../src/elf_parser.h

@@ -24,7 +24,9 @@ class Symbol {
 
         }
         void files();
+        void rule();
         void parse();
+        void parseobj(std::string &objname);
     private:
     // //三个集合
     // //所有的可重定位程序
@@ -32,5 +34,6 @@ class Symbol {
     std::string m_content;//需要写入的内容
     std::vector<std::string> m_files;
     std::vector<std::pair<std::string,std::vector<symbol_t>>> m_symols;//全局符号表
+    std::unordered_set<symbol_t,symbol_hash> m_global;
 };
 #endif

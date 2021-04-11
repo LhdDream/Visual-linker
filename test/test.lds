@@ -7,3 +7,4 @@ SECTIONS
 .data : { *(.data) }
 .bss : { *(.bss) }
 }
+OUTPUT(ab)
