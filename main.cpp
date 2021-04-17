@@ -105,9 +105,9 @@ int main(int argc, char * argv []) {
         Relocation relocat(files);
         relocat.parse();
         if(!ldsname.empty()){
+            relocat.start_address(uuid);
             relocat.obj_parse(objname);
             relocat.loadlib(uuid);
-            relocat.start_address(uuid);
         }
         auto table = relocat.get_table();
         if(!filename.empty()){
