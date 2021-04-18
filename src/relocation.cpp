@@ -20,7 +20,7 @@ void Relocation::parse() {
         }
         input_close(in);
         if(result.empty()){
-            result = "This relocation result is empty";
+            continue;
         }
         tmp.add_row({result});
         m_tables.push_back(tmp);
@@ -33,13 +33,19 @@ vector<Table> Relocation::get_table(){
 }
 
 void Relocation::loadlib(const std::string & mapname){
-    std:string cmd = "cat " + mapname + ".map | grep LOAD | awk '{print $2}' ";
+    std::string cmd = "python  ../script/analyze_map.py  " + mapname + ".map";
     std::string result = command(cmd);
     Table table;
-    table.add_row({"Load files"});
+    table.add_row({"Load files","Size","Section Size"});
     std::vector<std::string> results = Split(result,"\n");
-    for(auto i : results){
-        table.add_row({i});
+    std::vector<std::vector<std::string>> resultss;
+    for(auto i :results){
+        auto tmp = Split(i,"\t");
+        resultss.push_back(tmp);
+    }
+    for(auto i : resultss){
+        if(!i[0].empty())
+            table.add_row({i[0],i[1],i[2]});
     }
     m_tables.push_back(table);
 }

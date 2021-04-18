@@ -103,11 +103,13 @@ int main(int argc, char * argv []) {
     if(parse.exist("R")){
         //展示重定位的过程
         Relocation relocat(files);
+        if(!ldsname.empty()){
+           relocat.start_address(uuid);
+           relocat.loadlib(uuid);
+        }
         relocat.parse();
         if(!ldsname.empty()){
-            relocat.start_address(uuid);
             relocat.obj_parse(objname);
-            relocat.loadlib(uuid);
         }
         auto table = relocat.get_table();
         if(!filename.empty()){
