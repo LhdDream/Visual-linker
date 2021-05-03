@@ -48,6 +48,7 @@ int main(int argc, char * argv []) {
     parse.add("S",'\0',"展示段表信息");
     parse.add("s",'\0',"展示符号决议的过程");
     parse.add("R",'\0',"展示重定位过程");
+    parse.add("W",'\0',"以Web形式查看分析信息");
     parse.parse_check(argc,argv);
 
     auto file = parse.get<string>("file");  //可重定位文件
@@ -104,8 +105,8 @@ int main(int argc, char * argv []) {
         //展示重定位的过程
         Relocation relocat(files);
         if(!ldsname.empty()){
-           relocat.start_address(uuid);
            relocat.loadlib(uuid);
+           relocat.start_address(uuid);
         }
         relocat.parse();
         if(!ldsname.empty()){
@@ -116,6 +117,9 @@ int main(int argc, char * argv []) {
             Markdown md(table);
             md.writefile(filename);
         }
+    }
+    if(parse.exist("W")){
+        system("python3 ../script/panserver.py -r");
     }
     return 0;
 }

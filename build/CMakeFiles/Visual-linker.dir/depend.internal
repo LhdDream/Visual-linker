@@ -27,6 +27,7 @@ CMakeFiles/Visual-linker.dir/src/markdown.cpp.o
  /root/Visual-linker/utils/strings.cpp
 CMakeFiles/Visual-linker.dir/src/relocation.cpp.o
  /root/Visual-linker/src/depinput.h
+ /root/Visual-linker/src/elf_parser.h
  /root/Visual-linker/src/relocation.cpp
  /root/Visual-linker/src/relocation.h
  /root/Visual-linker/src/symtab.h

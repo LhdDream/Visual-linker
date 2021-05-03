@@ -268,7 +268,7 @@ class EmbeddingProcessor:
 @route('/view/<name:path>')
 def route_view(name):
     if file_provider.is_not_static(name):
-        print("not static")
+        #print("not static")
         fmt = bottle.request.query.fmt or "std"
         if not fmt in document_compilers: return 'Unknown format'
         compiler = document_compilers[fmt]
@@ -305,10 +305,10 @@ def route_generated(name):
 def route_index():
     text = ""
 
-    text += "<html><head><title>Panserver Index</title>"
+    text += "<html><head><title> Index</title>"
     text += '<style type="text/css">{}</style>'.format(style_basic + style_index)
     text += "</head><body>"
-    #
+
 
     def dir_entry(dirname, toplevel = False):
         #collect markdown files recursively into a list

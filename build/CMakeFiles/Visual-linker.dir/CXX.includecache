@@ -157,6 +157,8 @@ relocation.h
 /root/Visual-linker/src/relocation.h
 symtab.h
 /root/Visual-linker/src/symtab.h
+elf_parser.h
+/root/Visual-linker/src/elf_parser.h
 ../utils/command.cpp
 /root/Visual-linker/utils/command.cpp
 ../utils/strings.cpp

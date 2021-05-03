@@ -13,17 +13,8 @@ void Symbol::files() {
     m_content += exporter.dump(format) + "\n";
 }
 
-void Symbol::rule() {
-    Table format;
-    format.add_row({"The rules"});
-    format.add_row({"Local symbols have been determined during compilation"});
-    format.add_row({"Only GLOBAL symbols are considered during the linking process"});
-    MarkdownExporter exporter;
-    m_content += exporter.dump(format) + "\n";
-}
 
 void Symbol::parse() {
-    rule();
     files();
     for(auto i : m_files){
         Elf_parser elf_parser(i);
@@ -32,28 +23,32 @@ void Symbol::parse() {
     }
     for(auto symbol  : m_symols){
         //遍历已定义的符号
-        m_content += " Define Symbol Table \n";
+        int len = 0;
         Table tmp_exit;
         tmp_exit.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
         for(auto sym : symbol.second){
             if(sym.symbol_index == "UND" || sym.symbol_bind == "LOCAL"){
                 continue;
             }
+            len++;
             std::string name = sym.symbol_name;
             name += "(" + sym.symbol_section + ")";
             tmp_exit.add_row({symbol.first,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
             sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
             name});
         }
-        MarkdownExporter tmp_export;
-        m_content += tmp_export.dump(tmp_exit) + "\n";
-        m_content += "\n";
+        if(len > 0){
+            MarkdownExporter tmp_export;
+            m_content += tmp_export.dump(tmp_exit) + "\n";
+            m_content += "\n";
+        }
+        len = 0;
         // //遍历未定义的符号
-        m_content += " Undefine Symbol Table \n";
         Table tmp_noexit;
         tmp_noexit.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
         for(auto sym : symbol.second){
             if(sym.symbol_index == "UND" && sym.symbol_bind == "GLOBAL"){
+                len++;
                 std::string name = sym.symbol_name;
                 name += "(" + sym.symbol_section + ")";
                 tmp_noexit.add_row({symbol.first,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
@@ -61,10 +56,11 @@ void Symbol::parse() {
                 name});
             }
         }
-        MarkdownExporter tmp_noexport;
-        m_content += tmp_noexport.dump(tmp_noexit) + "\n";
-        m_content += "\n";
-        m_content += "Global Symbol Table\n";
+        if(len > 0){
+            MarkdownExporter tmp_noexport;
+            m_content += tmp_noexport.dump(tmp_noexit) + "\n";
+            m_content += "\n";
+        }
         Table global;
         global.add_row({"Value","Size","Type","Bind","Vis","Ndx","Name"});
         for(auto sym :symbol.second){

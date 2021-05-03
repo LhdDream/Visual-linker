@@ -21,7 +21,7 @@ class Relocation {
             vector<Table> get_table();
             void loadlib(const string & mapname);
             void start_address(const string & mapname);
-            void obj_parse(const std::string & objname);
+            void obj_parse(std::string & objname);
     private:
         vector<string> m_files;
         vector<Table>  m_tables;

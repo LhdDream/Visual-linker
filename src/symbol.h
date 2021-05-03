@@ -24,7 +24,6 @@ class Symbol {
 
         }
         void files();
-        void rule();
         void parse();
         void parseobj(std::string &objname);
     private:

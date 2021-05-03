@@ -1,6 +1,7 @@
 #include "depinput.h"
 #include "relocation.h"
 #include "symtab.h"
+#include "elf_parser.h"
 #include "../utils/command.cpp"
 #include "../utils/strings.cpp"
 void Relocation::parse() {
@@ -69,7 +70,7 @@ void Relocation::start_address(const std::string & mapname){
     m_tables.push_back(table);
 }
 
-void Relocation::obj_parse(const std::string & objname) {
+void Relocation::obj_parse(std::string & objname) {
     Table table;
     table.add_row({"Relocation Name","Relocation Value"});
     for(auto name :m_parse_name){
@@ -86,4 +87,20 @@ void Relocation::obj_parse(const std::string & objname) {
         }
     }
     m_tables.push_back(table);
+    Table global;
+    global.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
+    Elf_parser elf_parser(objname);
+    std::vector<symbol_t> symbols = elf_parser.get_symbols();
+    for(auto sym :symbols){
+        for(auto parse_name : m_parse_name){
+            if(!parse_name.empty() && sym.symbol_name == parse_name) {
+                std::string name = sym.symbol_name;
+                name += "(" + sym.symbol_section + ")";
+                global.add_row({objname,int_to_hex(sym.symbol_value),int_to_hex(sym.symbol_size),
+                sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
+                name});
+            }
+        }
+    }
+    m_tables.push_back(global);
 }
