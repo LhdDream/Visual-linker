@@ -97,6 +97,7 @@ int main(int argc, char * argv []) {
             Symbol symbol(files,filename);
             symbol.parse();
             if(!ldsname.empty()){
+                symbol.startaddress(uuid);
                 symbol.parseobj(objname);
             }
         }

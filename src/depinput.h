@@ -1,9 +1,6 @@
 #ifndef DEPINPUT_H_
 #define DEPINPUT_H_
 
-
-
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -16,6 +13,7 @@
 #include "depinput.h"
 #include "../utils/easylogging++.h"
 
+//读取的信息
 struct input_s {
     input_s():fd(-1),fsize(0),map(nullptr),same_endian(true),is_64(true) {
 
@@ -33,7 +31,7 @@ typedef struct symtab_s		symtab_t;
 typedef struct elf_sections_s 	elf_sections_t;
 
 
-
+//对于elf文件进行读取注册相应的回调函数
 
 struct 	reader_funcs
 {

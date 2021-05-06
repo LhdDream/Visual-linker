@@ -1,6 +1,7 @@
 #ifndef H_ELF_PARSER
 #define H_ELF_PARSER
 
+//符号表，段表，重定位表的读取和解析
 #include <iostream>
 #include <string>
 #include <cstdint>

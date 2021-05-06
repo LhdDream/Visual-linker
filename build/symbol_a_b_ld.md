@@ -34,6 +34,13 @@
 | 0x0000000000000000 | 0x0000002c | FUNC   | GLOBAL | DEFAULT | 1     | main(.symtab)   |
 
 
+| Section | Address            | Size  |
+| :----   | :----              | :---- |
+| .text   | 0x0000000000010000 | 0x77  |
+| .data   | 0x0000000008000000 | 0x4   |
+| .bss    | 0x0000000008000004 | 0x0   |
+
+
 | File  | Value              | Size       | Type   | Bind   | Vis     | Ndx   | Name            |
 | :---- | :----              | :----      | :----  | :----  | :----   | :---- | :----           |
 | ab    | 0x000000000010,02c | 0x0000004b | FUNC   | GLOBAL | DEFAULT | 1     | swap(.symtab)   |

@@ -40,9 +40,11 @@ CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../src/section.h
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../utils/command.cpp
 CMakeFiles/Visual-linker.dir/src/section.cpp.o: ../utils/strings.cpp
 
+CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../src/cmd.h
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../src/elf_parser.h
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../src/symbol.cpp
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../src/symbol.h
+CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../utils/command.cpp
 CMakeFiles/Visual-linker.dir/src/symbol.cpp.o: ../utils/strings.cpp
 
 CMakeFiles/Visual-linker.dir/src/symtab.cpp.o: ../src/symtab.cpp

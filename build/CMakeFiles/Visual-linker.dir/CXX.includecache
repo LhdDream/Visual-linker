@@ -321,6 +321,8 @@ symbol.h
 /root/Visual-linker/utils/strings.cpp
 tabulate/markdown_exporter.hpp
 /root/Visual-linker/src/tabulate/markdown_exporter.hpp
+cmd.h
+/root/Visual-linker/src/cmd.h
 
 /root/Visual-linker/src/symbol.h
 tabulate/table.hpp
