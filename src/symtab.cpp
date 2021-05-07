@@ -9,11 +9,11 @@
 
 typedef struct reloc
 {
-	const char *	sym_name;	// refers this symbol name
-	bool		is_func;	// symbol is function?
-	size_t		offset;		// from the patched sym
-	int64_t		addend;		// relocation's addend, if rela
-	struct reloc *	next;		// linked list of relocations
+	const char *	sym_name;
+	bool		is_func;
+	size_t		offset;
+	int64_t		addend;
+	struct reloc *	next;
 } reloc;
 
 

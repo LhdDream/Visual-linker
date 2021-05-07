@@ -13,7 +13,7 @@
 #include <vector>
 #include <elf.h>      // Elf64_Shdr
 #include <fcntl.h>
-
+//段的信息，包括偏移量，地址和字节数
 typedef struct {
     int section_index = 0;
     std::intptr_t section_offset, section_addr;

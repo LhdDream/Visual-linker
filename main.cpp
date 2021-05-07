@@ -79,6 +79,7 @@ int main(int argc, char * argv []) {
         Section section(files);
         section.parse();
         if(!ldsname.empty()){
+            section.startaddress(uuid);
             section.parsemap(uuid);
             vector<string> tmp;
             tmp.push_back(objname);
@@ -97,7 +98,6 @@ int main(int argc, char * argv []) {
             Symbol symbol(files,filename);
             symbol.parse();
             if(!ldsname.empty()){
-                symbol.startaddress(uuid);
                 symbol.parseobj(objname);
             }
         }

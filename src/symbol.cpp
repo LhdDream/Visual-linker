@@ -111,24 +111,3 @@ void Symbol::parseobj(std::string &objname) {
     WriteFile(m_file,content);
 }
 
-void Symbol::startaddress(const std::string & mapname) {
-    Table table;
-    std::string cmd = "cat "+ mapname + ".map  | grep .text | head -1 | awk '{print $1\" \"$2\" \"$3}' ";
-    std::string result = command(cmd);
-    std::vector<std::string> results;
-    results = Split(result, " ");
-    table.add_row({"Section","Address","Size"});
-    table.add_row({results[0],results[1],results[2]});
-    cmd = "cat "+ mapname + ".map  | grep .data | head -1 | awk '{print $1\" \"$2\" \"$3}' ";
-    result = command(cmd);
-    results = Split(result, " ");
-    table.add_row({results[0],results[1],results[2]});
-    cmd = "cat "+ mapname + ".map  | grep .bss | head -1 | awk '{print $1\" \"$2\" \"$3}' ";
-    result = command(cmd);
-    results = Split(result, " ");
-    table.add_row({results[0],results[1],results[2]});
-    MarkdownExporter markdown;
-    std::string content = markdown.dump(table) + "\n";
-    content += "\n";
-    WriteFile(m_file,content);
-}

@@ -26,7 +26,6 @@ class Symbol {
         void files();
         void parse();
         void parseobj(std::string &objname);
-        void startaddress(const std::string & mapname);
     private:
     // //三个集合
     // //所有的可重定位程序
