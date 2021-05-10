@@ -4,10 +4,12 @@
 #include "../utils/command.cpp"
 
 using namespace tabulate;
-vector<Table> Section::get_tables() {
+vector<Table> Section::get_tables() const {
     return m_result;
 }
-
+vector<string>  Section::get_notes() const{
+    return m_notes;
+}
 void Section::parse(){
     for(auto file : m_files){
         //文件内容
@@ -22,6 +24,7 @@ void Section::parse(){
                      format.add_row({file,i.section_name,i.section_type,int_to_hex(i.section_addr),to_string(i.section_size)});
             }
         }
+        m_notes.emplace_back("段表信息");
         m_result.push_back(format);
     }
 }
@@ -56,6 +59,7 @@ void Section::parsemap(const string & filename) {
             table.add_row({i[3],i[0],i[1],to_string(x)});
         }
     }
+    m_notes.emplace_back("段表合并顺序");
     m_result.push_back(table);
 }
 
@@ -76,6 +80,7 @@ void Section::startaddress(const std::string & mapname){
     result = command(cmd);
     results = Split(result, " ");
     table.add_row({results[0],results[1]});
+    m_notes.emplace_back("段表起始地址");
     m_result.push_back(table);
 }
 

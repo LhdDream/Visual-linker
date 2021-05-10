@@ -4,6 +4,7 @@
 #include "cmd.h"
 
 void Symbol::files() {
+    m_content += "载入文件列表\n\n";
     Table format;
     format.add_row({"files gather"});
     for(auto i : m_files){
@@ -38,6 +39,7 @@ void Symbol::parse() {
             name});
         }
         if(len > 0){
+            m_content += "已定义符号列表\n\n";
             MarkdownExporter tmp_export;
             m_content += tmp_export.dump(tmp_exit) + "\n";
             m_content += "\n";
@@ -57,6 +59,7 @@ void Symbol::parse() {
             }
         }
         if(len > 0){
+            m_content += "未定义符号列表\n\n";
             MarkdownExporter tmp_noexport;
             m_content += tmp_noexport.dump(tmp_noexit) + "\n";
             m_content += "\n";
@@ -82,6 +85,7 @@ void Symbol::parse() {
             sym.symbol_type,sym.symbol_bind,sym.symbol_visibility,sym.symbol_index,
             name});
         }
+        m_content += "全局符号列表\n\n";
         MarkdownExporter tmp_global;
         m_content += tmp_global.dump(global) + "\n";
         m_content += "\n";
@@ -106,7 +110,9 @@ void Symbol::parseobj(std::string &objname) {
             name});
     }
     MarkdownExporter markdown;
-    std::string content = markdown.dump(table) + "\n";
+    std::string content ;
+    content += "目标文件\n\n";
+    content += markdown.dump(table) + "\n";
     content += "\n";
     WriteFile(m_file,content);
 }

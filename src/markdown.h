@@ -11,10 +11,15 @@ using namespace std;
 using namespace tabulate;
 class Markdown{
     public:
-    Markdown( const vector<Table> & table) {
+    Markdown( const vector<Table> & table, const vector<string> &notes) {
+        int j = 0;
         for(auto i : table)
         {
-            std::string tmp = exporter.dump(i) +"\n";
+            std::string tmp ;
+            if(!notes.empty() && j < notes.size()){
+                tmp += notes[j++] + "\n\n";
+            }
+            tmp += exporter.dump(i) +"\n";
             content.push_back(tmp);
         }
     }

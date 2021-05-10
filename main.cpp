@@ -87,8 +87,9 @@ int main(int argc, char * argv []) {
             section.parse();
         }
         auto table = section.get_tables();
+        auto note = section.get_notes();
         if(!filename.empty()){
-            Markdown md(table);
+            Markdown md(table,note);
             md.writefile(filename);
         }
     }
@@ -114,8 +115,9 @@ int main(int argc, char * argv []) {
             relocat.obj_parse(objname);
         }
         auto table = relocat.get_table();
+        auto note = relocat.get_note();
         if(!filename.empty()){
-            Markdown md(table);
+            Markdown md(table,note);
             md.writefile(filename);
         }
     }

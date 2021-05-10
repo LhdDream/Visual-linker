@@ -24,6 +24,7 @@ void Relocation::parse() {
             continue;
         }
         tmp.add_row({result});
+        m_notes.emplace_back("重定位表");
         m_tables.push_back(tmp);
     }
 
@@ -31,6 +32,9 @@ void Relocation::parse() {
 
 vector<Table> Relocation::get_table(){
     return m_tables;
+}
+vector<string> Relocation::get_note() {
+    return m_notes;
 }
 
 void Relocation::loadlib(const std::string & mapname){
@@ -48,6 +52,7 @@ void Relocation::loadlib(const std::string & mapname){
         if(!i[0].empty())
             table.add_row({i[0],i[1],i[2]});
     }
+    m_notes.emplace_back("加载的文件");
     m_tables.push_back(table);
 }
 
@@ -67,6 +72,7 @@ void Relocation::start_address(const std::string & mapname){
     result = command(cmd);
     results = Split(result, " ");
     table.add_row({results[0],results[1],results[2]});
+     m_notes.emplace_back("段起始地址");
     m_tables.push_back(table);
 }
 
@@ -86,6 +92,7 @@ void Relocation::obj_parse(std::string & objname) {
 
         }
     }
+    m_notes.emplace_back("重定位表的汇编结果");
     m_tables.push_back(table);
     Table global;
     global.add_row({"File","Value","Size","Type","Bind","Vis","Ndx","Name"});
@@ -102,5 +109,6 @@ void Relocation::obj_parse(std::string & objname) {
             }
         }
     }
+    m_notes.emplace_back("重定位的表项结果");
     m_tables.push_back(global);
 }

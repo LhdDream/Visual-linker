@@ -19,6 +19,7 @@ class Relocation {
             Relocation(vector<string> & files) : m_files(files) {}
             void parse();
             vector<Table> get_table();
+            vector<string> get_note();
             void loadlib(const string & mapname);
             void start_address(const string & mapname);
             void obj_parse(std::string & objname);
@@ -26,5 +27,6 @@ class Relocation {
         vector<string> m_files;
         vector<Table>  m_tables;
         vector<string> m_parse_name;
+        vector<string> m_notes;
 };
 #endif

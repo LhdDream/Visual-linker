@@ -14,12 +14,14 @@ class Section {
     public:
     Section(vector<string> &files) : m_files(files) {}
     void parse();
-    vector<Table> get_tables();
+    vector<Table> get_tables() const;
+    vector<string> get_notes() const ;
     void swap(vector<string> & files);
     void parsemap(const string & filename);
     void startaddress(const std::string & mapname);
     private:
     vector<string> m_files;
     vector<Table> m_result;
+    vector<string> m_notes;
 };
 #endif
