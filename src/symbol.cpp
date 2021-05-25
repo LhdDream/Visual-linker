@@ -13,10 +13,22 @@ void Symbol::files() {
     MarkdownExporter exporter;
     m_content += exporter.dump(format) + "\n";
 }
-
+void Symbol::parse_result(std::string & result){
+    auto results = Split(result, "\n");
+    m_content  += "符号读取过程\n\n";
+    Table format;
+    format.add_row({"Symbol","Status"});
+    for(auto tmp : results){
+        if(!tmp.empty()){
+            auto content = Split(tmp, " ");
+            format.add_row({content[1],content[3]});
+        }
+    }
+    MarkdownExporter exporter;
+    m_content += exporter.dump(format) + "\n";
+}
 
 void Symbol::parse() {
-    files();
     for(auto i : m_files){
         Elf_parser elf_parser(i);
         std::vector<symbol_t> symbols = elf_parser.get_symbols();

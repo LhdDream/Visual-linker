@@ -71,7 +71,8 @@
         "unordered_set": "cpp",
         "codecvt": "cpp",
         "hash_map": "cpp",
-        "hash_set": "cpp"
+        "hash_set": "cpp",
+        "cstdatomic": "cpp"
     },
     "Lua.diagnostics.globals": [
         "commandinfo"

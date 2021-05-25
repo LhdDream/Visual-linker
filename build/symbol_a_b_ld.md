@@ -5,6 +5,16 @@
 | a.o          |
 | b.o          |
 
+符号读取过程
+
+| Symbol | Status    |
+| :----  | :----     |
+| main   | 已定义 |
+| shared | 未定义 |
+| swap   | 未定义 |
+| shared | 已定义 |
+| swap   | 已定义 |
+
 已定义符号列表
 
 | File  | Value              | Size       | Type  | Bind   | Vis     | Ndx   | Name          |

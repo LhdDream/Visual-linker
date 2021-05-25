@@ -66,9 +66,10 @@ int main(int argc, char * argv []) {
     }
     sole::uuid u0 = sole::uuid0();
     std::string uuid = u0.base62();
+    std::string result;
     if(!ldsname.empty()) {
         //执行一个连接
-        std::string result = exec(files,uuid,ldsname,objname);
+        result = exec(files,uuid,ldsname,objname);
         if(!isexit(objname)){
             std::cout << "链接失败,错误原因:" << result << std::endl;
             return -1;
@@ -97,6 +98,8 @@ int main(int argc, char * argv []) {
         //展示符号决议的过程
         if(!filename.empty()){
             Symbol symbol(files,filename);
+            symbol.files();
+            symbol.parse_result(result);
             symbol.parse();
             if(!ldsname.empty()){
                 symbol.parseobj(objname);

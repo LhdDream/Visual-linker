@@ -6,7 +6,7 @@
 //执行链接任务
 static std::string exec(const std::vector<std::string> &files,const std::string& id,const std::string & lds, const std::string & objname){
     std::string cmd ;
-    cmd += "ld ";
+    cmd += "cp ../script/ld-new .  && ./ld-new ";
     for(auto file  : files){
         cmd +=  file + " ";
     }

@@ -26,9 +26,11 @@ class Symbol {
         void files();
         void parse();
         void parseobj(std::string &objname);
+        void parse_result(std::string & result);
     private:
     // //三个集合
     // //所有的可重定位程序
+    std::string m_result; // 符号决议的过程
     std::string m_file; // 需要写入的文件
     std::string m_content;//需要写入的内容
     std::vector<std::string> m_files;
